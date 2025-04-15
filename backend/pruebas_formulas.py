@@ -3,8 +3,8 @@ Pruebas
 
 Contiene las pruebas de cada formula
 """
-from formulas import *
-from pacientes import Paciente
+from backend.formulas import *
+from backend.pacientes import Paciente
 
 
 paciente_prueba = Paciente(21, 1.70, 65, "hombre", 1, 1.1)

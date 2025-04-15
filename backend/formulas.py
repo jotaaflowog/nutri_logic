@@ -3,7 +3,16 @@ Formulas
 
 Contiene todas las formulas.
 """
-from funciones_formulas import *
+from backend.funciones_formulas import *
+
+# lista con todas las formulas
+formulas = ["Predictiva Get", 
+            "Harris-Benedit",
+            "Miffin",
+            "OMS",
+            "Método Factorial",
+            "Schofield Peso",
+            "Schofield Peso y Talla"]
 
 # formula predictiva get -> devuelve GET
 def predictiva_get(paciente):

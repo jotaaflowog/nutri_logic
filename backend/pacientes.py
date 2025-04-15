@@ -17,3 +17,6 @@ class Paciente():
         self.fp = fp  # -> factor patológico
         self.faf = faf # -> factor actividad fisica
 
+    def __str__(self):
+        texto = f"Edad: {self.edad}\nAltura: {self.altura}\nPeso: {self.peso}\nGenero: {self.genero}\nfaf y fp: {self.faf} {self.fp}"
+        return texto
