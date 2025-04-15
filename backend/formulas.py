@@ -239,8 +239,10 @@ def schofield_peso(paciente, crecimiento, f_desnutricion):
     """
     edad = paciente.edad
 
+    # validacion genero hombre
     if paciente.genero == "hombre":
 
+        # validacion edades
         if 0 <= edad <= 3:
             ger = 59.48 * paciente.peso - 30.33
             get = calcular_get_scho(paciente, ger, f_desnutricion)
@@ -259,8 +261,10 @@ def schofield_peso(paciente, crecimiento, f_desnutricion):
             get_total = get * crecimiento
             return get_total
     
+    # validacion mujer
     elif paciente.genero == "mujer":
         
+        # validacion edades
         if 0 <= edad <= 3:
             ger = 58.29 * paciente.peso - 31.05
             get = calcular_get_scho(paciente, ger, f_desnutricion)
@@ -281,6 +285,52 @@ def schofield_peso(paciente, crecimiento, f_desnutricion):
 
 # formula schofield peso talla -> (GER (faf + fp + fd -2)) + crecimiento
 def schofield_peso_talla(paciente, crecimiento, f_desnutricion):
+    """
+    Calcula el get con peso y talla
+    """
     edad = paciente.edad
-    pass
+    
+    # validacion genero hombre
+    if paciente.genero == "hombre":
+        
+        # validacion edades
+        if 0 <= edad <= 3:
+            ger = 0.167 * paciente.peso + 1517.4 * paciente.altura - 617.5
+            get = calcular_get_scho(paciente, ger, f_desnutricion)
+            get_total = get * crecimiento
+            return get_total
+
+        elif 4 <= edad <= 10:
+            ger = 19.6 * paciente.peso + 130.3 * paciente.altura + 414.9
+            get = calcular_get_scho(paciente, ger, f_desnutricion)
+            get_total = get * crecimiento
+            return get_total
+
+        elif 11 <= edad <= 18:
+            ger = 16.25 * paciente.peso + 137.2 * paciente.altura + 515.5
+            get = calcular_get_scho(paciente, ger, f_desnutricion)
+            get_total = get * crecimiento
+            return get_total
+
+    # validacion genero mujer
+    elif paciente.genero == "mujer":
+        
+        # validacion edades
+        if 0 <= edad <= 3:
+            ger = 16.25 * paciente.peso + 1023.2 * paciente.altura - 413.5
+            get = calcular_get_scho(paciente, ger, f_desnutricion)
+            get_total = get * crecimiento
+            return get_total
+
+        elif 4 <= edad <= 10:
+            ger = 16.97 * paciente.peso + 161.8 * paciente.altura + 371.2
+            get = calcular_get_scho(paciente, ger, f_desnutricion)
+            get_total = get * crecimiento
+            return get_total
+
+        elif 11 <= edad <= 18:
+            ger = 8.365 * paciente.peso + 465 * paciente.altura + 200
+            get = calcular_get_scho(paciente, ger, f_desnutricion)
+            get_total = get * crecimiento
+            return get_total
 

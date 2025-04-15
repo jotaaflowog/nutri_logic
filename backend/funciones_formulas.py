@@ -132,3 +132,53 @@ def calcular_get_scho(paciente, ger, fd):
     """
     get = ger * (paciente.fp + paciente.faf + fd - 2)
     return get
+
+# calcular las kcal por % de cada macro
+def calcular_kcal_macro(macros_porcentaje, get):
+    """
+    Calcula que % le toca de las kcal
+    totales en cada macro
+    """
+    kcal_macros = {}
+
+    for macro, porcentaje in macros_porcentaje.items():
+
+        kcal_macros[macro] = (porcentaje * get) / 100
+
+    return kcal_macros
+
+# calcular gramos por dia macros
+def calcular_g_macros(kcal_macros):
+    """
+    Calcula los gramos por dia
+    por cada macro
+    """
+    g_macros = {}
+
+    for macro, kcal in kcal_macros.items():
+
+        if macro == "proteina" or macro == "hidratos_carbono":
+
+            g_macros[macro] = kcal / 4
+
+        else:
+             
+             g_macros[macro] = kcal / 9
+
+    return g_macros
+
+# calcular gramos por dia por peso macros
+def calcular_g_peso(paciente, g_macros):
+    """
+    Calcula los gramos por peso 
+    y por dia de cada macro
+    """
+
+    g_peso_macros = {}
+
+    for macro, gramos in g_macros.items():
+
+        g_peso_macros[macro] = gramos / paciente.peso
+    
+    
+    return g_peso_macros
