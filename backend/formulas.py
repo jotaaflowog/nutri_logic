@@ -3,12 +3,7 @@ Formulas
 
 Contiene todas las formulas.
 """
-from pacientes import Paciente
 from funciones_formulas import *
-
-# paciente pueba
-paciente_prueba = Paciente(21, 1.70,60,"mujer",1, 2)
-
 
 # formula predictiva get -> devuelve GET
 def predictiva_get(paciente):
@@ -177,10 +172,64 @@ def mifflin(paciente):
 
 # formula OMS -> devuelve GET listo -> GER * (faf +fp)
 def oms(paciente):
-    pass
+    """
+    Calcula el GER y devuelve el GET
+    """
+    
+    # validacion de genero mujer
+    if paciente.genero == "mujer":
+        
+        # validacion de generacion
+        rango = rango_edad(paciente)
 
-resultado = mifflin(paciente_prueba)
-print(resultado)
+        match rango:
 
+            case "joven":
+                ger = (paciente.peso * 14.7) + 496
+                get = calular_get_total(paciente, ger)
+                return get
+            
+            case "adulto":
+                ger = (paciente.peso * 8.7) + 829
+                get = calular_get_total(paciente, ger)
+                return get
+
+            case "tercera edad":
+                ger = (paciente.peso * 10.5) + 596
+                get = calular_get_total(paciente, ger)
+                return get
+    
+    # validacion de genero hombre
+    elif paciente.genero == "hombre":
+        
+        # validacion de generacion
+        rango = rango_edad(paciente)
+
+        match rango:
+
+            case "joven":
+                ger = (paciente.peso * 15.3) + 679
+                get = calular_get_total(paciente, ger)
+                return get
+            
+            case "adulto":
+                ger = (paciente.peso * 11.6) + 879
+                get = calular_get_total(paciente, ger)
+                return get
+
+            case "tercera edad":
+                ger = (paciente.peso * 13.5) + 487
+                get = calular_get_total(paciente, ger)
+                return get
+
+# formula metodo factorial devuelve GET
+def metodo_factorial(paciente, factor):
+    """
+    Calcula el GET total, segun el factor
+    """
+
+    get = factor * paciente.peso
+
+    return get
 
 

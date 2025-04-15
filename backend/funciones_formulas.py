@@ -92,6 +92,24 @@ def validar_edad_ninio(paciente, get):
 # funcion para calcular el GET con el GER
 def calular_get_total(paciente, ger):
 
-    get = ger * (paciente.faf + paciente.fp)
+    get = ger * (paciente.faf + paciente.fp - 1)
 
     return get
+
+# funcion para definir un rango de edad (para OMS)
+def rango_edad(paciente):
+    """
+    Devuelve el rango de edad
+    """
+    
+    edad = paciente.edad
+
+    if 18 <= edad <= 29:
+        return "joven"
+    
+    elif 30 <= edad <= 59:
+        return "adulto"
+    
+    elif edad >= 60:
+        return "tercera edad"
+
