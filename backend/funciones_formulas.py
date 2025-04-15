@@ -3,6 +3,7 @@ Funciones.
 
 Contiene lo utlizado en las formulas
 """
+import math
 
 # funcion para pasar altura a cm
 def altura_en_cm(paciente):
@@ -113,3 +114,21 @@ def rango_edad(paciente):
     elif edad >= 60:
         return "tercera edad"
 
+# funcion para redondear cada resultado hacia arriba
+def rendondear(numero):
+    """
+    Devolvera el numero redondeado
+    hacia arriba
+    """
+
+    resultado = math.ceil(numero)
+
+    return resultado
+
+# funcion para calcular el GET en schofield
+def calcular_get_scho(paciente, ger, fd):
+    """
+    Devuelve el GET calculado
+    """
+    get = ger * (paciente.fp + paciente.faf + fd - 2)
+    return get

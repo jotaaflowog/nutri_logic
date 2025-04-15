@@ -11,4 +11,5 @@ paciente_prueba = Paciente(21, 1.70, 65, "hombre", 1, 1.1)
 
 
 resultado = predictiva_get(paciente_prueba)
+resultado = rendondear(resultado)
 print(resultado)
