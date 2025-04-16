@@ -12,7 +12,8 @@ formulas = ["Predictiva Get",
             "OMS",
             "Método Factorial",
             "Schofield Peso",
-            "Schofield Peso y Talla"]
+            "Schofield Peso y Talla",
+            "Factorial de Carrasco"]
 
 # formula predictiva get -> devuelve GET
 def predictiva_get(paciente):
@@ -343,3 +344,4 @@ def schofield_peso_talla(paciente, crecimiento, f_desnutricion):
             get_total = get * crecimiento
             return get_total
 
+# formula factorial de carrasco -> devuelve GET listo

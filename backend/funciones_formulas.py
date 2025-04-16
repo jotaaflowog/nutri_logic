@@ -182,3 +182,14 @@ def calcular_g_peso(paciente, g_macros):
     
     
     return g_peso_macros
+
+# calculo IMC
+def calcular_imc(paciente):
+    """
+    Calcula el imc y retorna
+    el resultado
+    """
+
+    imc = paciente.peso / paciente.altura ** 2
+
+    return imc
