@@ -15,6 +15,10 @@ formulas = ["Predictiva Get",
             "Schofield Peso y Talla",
             "Factorial de Carrasco"]
 
+sub_formulas_carrasco = ["Mantenimiento",
+                         "Con enfermedad",
+                         "Restricción Calórica"]
+
 # formula predictiva get -> devuelve GET
 def predictiva_get(paciente):
     """
@@ -345,3 +349,26 @@ def schofield_peso_talla(paciente, crecimiento, f_desnutricion):
             return get_total
 
 # formula factorial de carrasco -> devuelve GET listo
+def factorial_carrasco(paciente, sub_formula, delta_negativo=1):
+    """
+    Devolvera el get listo
+    """
+
+    imc = calcular_imc(paciente)
+    clasificacion = clasificar_imc(paciente, imc)
+    factor = clasificar_factorial(paciente, clasificacion)
+
+    # sub formulas
+    match sub_formula:
+
+        case "mantenimiento":
+            get = factor * paciente.peso * paciente.faf
+            return get
+        
+        case "con enfermedad":
+            get = factor * paciente.peso * (paciente.faf + paciente.fp - 1)
+            return get
+        
+        case "restriccion calorica":
+            get = (factor * paciente.peso * paciente.faf) - delta_negativo
+            return get

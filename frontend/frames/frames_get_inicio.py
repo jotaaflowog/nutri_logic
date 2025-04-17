@@ -82,6 +82,22 @@ class GetInicioFrame(ctk.CTkFrame):
         self.label_desnutricion = ctk.CTkLabel(panel_der, text="Factor Desnutrición:")
         self.entry_desnutricion = ctk.CTkEntry(panel_der)
 
+        self.label_sub_formula = ctk.CTkLabel(panel_der, text="Sub Fórmula:")
+        self.selector_sub_formula = ctk.CTkOptionMenu(panel_der,
+                                                        values=sub_formulas_carrasco,
+                                                        command=self.actualizar_subformulas,
+                                                        width=240,
+                                                        height=35,
+                                                        fg_color="#6A0DAD",
+                                                        button_color="#5a089e",
+                                                        text_color="white",
+                                                        dropdown_fg_color="white",
+                                                        dropdown_hover_color="#d6c1e8",
+                                                        dropdown_text_color="#333")
+        
+        self.label_delta_negativo = ctk.CTkLabel(panel_der, text="Delta Negativo:")
+        self.selector_delta_negativo = ctk.CTkEntry(panel_der)
+
         # ------ Botón Calcular ------
         btn_calcular = ctk.CTkButton(self,
                                      text="Calcular",
@@ -99,7 +115,7 @@ class GetInicioFrame(ctk.CTkFrame):
         self.label_error.grid(row=2, column=0, columnspan=2)
         self.label_error.grid_remove()
 
-
+    
     def actualizar_campos_extras(self, seleccionada):
         # Ocultar todos
         self.label_factor.pack_forget()
@@ -108,6 +124,10 @@ class GetInicioFrame(ctk.CTkFrame):
         self.entry_crecimiento.pack_forget()
         self.label_desnutricion.pack_forget()
         self.entry_desnutricion.pack_forget()
+        self.label_sub_formula.pack_forget()
+        self.selector_sub_formula.pack_forget()
+        self.label_delta_negativo.pack_forget()
+        self.selector_delta_negativo.pack_forget()
 
         # Mostrar según fórmula
         if seleccionada == "Método Factorial":
@@ -119,12 +139,29 @@ class GetInicioFrame(ctk.CTkFrame):
             self.entry_crecimiento.pack()
             self.label_desnutricion.pack(pady=(10, 0))
             self.entry_desnutricion.pack()
+        
+        elif seleccionada == "Factorial de Carrasco":
+            self.label_sub_formula.pack(pady=(10, 0))
+            self.selector_sub_formula.pack()
+
+
+    def actualizar_subformulas(self, *args):
+        subformula = self.selector_sub_formula.get()
+        
+        # Ocultamos los campos por defecto
+        self.label_delta_negativo.pack_forget()
+        self.selector_delta_negativo.pack_forget()
+
+        if subformula == "Restricción Calórica":
+            self.label_delta_negativo.pack(pady=(10, 0))
+            self.selector_delta_negativo.pack()
 
     def calcular_get(self):
         
-        # variables que no tienen error
+        # variables que no tienen error general
         formula = self.selector_formula.get()
         genero = self.genero.get().lower()
+
        
         try:
             edad = validar_entero(self.entrada_edad.get(), "Edad")
@@ -156,14 +193,12 @@ class GetInicioFrame(ctk.CTkFrame):
 
             # creacion paciente
             paciente = Paciente(edad, altura, peso, genero, fp, faf)
-            print(paciente)
             
             
             # formula utilizada
             match formula:
                  
                 case "Predictiva Get":
-
                     get = rendondear(predictiva_get(paciente))
                     print(get)
                  
@@ -190,6 +225,36 @@ class GetInicioFrame(ctk.CTkFrame):
                 case "Schofield Peso y Talla":
                     get = rendondear(schofield_peso_talla(paciente, crecimiento, f_desnutricion))
                     print(get)
+
+                case "Factorial de Carrasco":
+                    
+                    #sub_formulas
+                    sub_formula = self.selector_sub_formula.get()
+                    match sub_formula:
+
+                        case "Mantenimiento":
+                            get = rendondear(factorial_carrasco(paciente, "mantenimiento"))
+                            print(get)
+                        
+                        case "Con enfermedad":
+                            get = rendondear(factorial_carrasco(paciente, "con enfermedad"))
+                            print(get)
+                        
+                        case "Restricción Calórica": 
+                             
+                            try:
+                                delta_negativo = validar_entero(self.selector_delta_negativo.get(), "Delta Negativo")
+                                self.label_error.grid_remove()
+                            
+                            except ValueError as e:
+                                self.label_error.configure(text=str(e))
+                                self.label_error.grid()
+                            
+                            else:
+                                get = rendondear(factorial_carrasco(paciente, "restriccion calorica", delta_negativo))
+                                print(get)
+
+                            
                 
 
 

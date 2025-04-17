@@ -193,3 +193,111 @@ def calcular_imc(paciente):
     imc = paciente.peso / paciente.altura ** 2
 
     return imc
+
+# clasificar el imc
+def clasificar_imc(paciente, imc):
+    """
+    Calculara el su estado
+    segun el imc y edad, retornando
+    el estado del paciente
+    """
+    
+    # adulto joven
+    if 18 <= paciente.edad <= 64:
+        
+        # verificar imc
+        if 18.5 <= imc <= 24.9:
+            return "peso normal"
+        
+        elif 25 <= imc <= 29.9:
+            return "sobre peso"
+        
+        elif 30 <= imc <= 39.9:
+            return "obesidad"
+        
+        elif imc >= 40:
+            return "obesidad morbida"
+        
+        else:
+            print("error, no se puede calcular")
+    
+    # adulto mayor
+    elif paciente.edad >= 65:
+        
+        # verificar imc
+        if 23.1 <= imc <= 27.9:
+            return "peso normal"
+        
+        elif 28 <= imc <= 31.9:
+            return "sobre peso"
+
+        elif 32 <= imc <= 39.9:
+            return "obesidad"
+        
+        elif imc >= 40:
+            return "obesidad morbida"
+        
+        else:
+            print("error, no se puede calcular")
+
+    else:
+        print("error, edad no aceptada")
+
+#  clasificar factorial
+def clasificar_factorial(paciente, clasificacion):
+    """
+    Retornara el factor, dependiendo
+    su clasificacion y genero
+    """
+    
+    # segmentar segun su clasificacion
+    match clasificacion:
+        
+        case "peso normal":
+            
+            # mujer 
+            if paciente.genero == "mujer":
+                factor = 20.7
+                return factor
+            
+            # hombre
+            else:
+                factor = 23.6
+                return factor
+        
+        case "sobre peso":
+
+            # mujer
+            if paciente.genero == "mujer":
+                factor = 19.7
+                return factor
+            
+            # hombre
+            else:
+                factor = 20
+                return factor
+        
+        case "obesidad":
+
+            # mujer
+            if paciente.genero == "mujer":
+                factor = 18.3
+                return factor
+            
+            # hombre
+            else:
+                factor = 19
+                return factor
+        
+        case "obesidad morbida":
+
+            # mujer
+            if paciente.genero == "mujer":
+                factor = 16.2
+                return factor
+            
+            # hombre
+            else:
+                factor = 17
+                return factor
+            
