@@ -372,3 +372,5 @@ def factorial_carrasco(paciente, sub_formula, delta_negativo=1):
         case "restriccion calorica":
             get = (factor * paciente.peso * paciente.faf) - delta_negativo
             return get
+
+# formula fao oms unu 2004 para bebes -> devuelve GET listo
