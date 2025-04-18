@@ -13,7 +13,9 @@ formulas = ["Predictiva Get",
             "Método Factorial",
             "Schofield Peso",
             "Schofield Peso y Talla",
-            "Factorial de Carrasco"]
+            "Factorial de Carrasco",
+            "FAO-OMS-UNU Bebés",
+            "FAO-OMS-UNU Niños"]
 
 sub_formulas_carrasco = ["Mantenimiento",
                          "Con enfermedad",
@@ -374,3 +376,570 @@ def factorial_carrasco(paciente, sub_formula, delta_negativo=1):
             return get
 
 # formula fao oms unu 2004 para bebes -> devuelve GET listo
+def fao_oms_onu_bebes(paciente, meses, modo_alimentacion):
+    """
+    Calcula el get a traves del factor
+    retornando el get listo
+    """
+    
+    # clasificar mes
+    match meses:
+
+        case 1:
+            
+            # clasificar alimentacion
+            match modo_alimentacion:
+
+                # lactancia materna
+                case "lm":
+                    
+                    # clasificar genero
+                    match paciente.genero:
+
+                        case "hombre":
+                            get = paciente.peso * 106
+                            return get
+
+                        case "mujer":
+                            get = paciente.peso * 99
+                            return get
+                
+                # formula lactea
+                case "fla":
+                    
+                    # clasificar genero
+                    match paciente.genero:
+
+                        case "hombre":
+                            get = paciente.peso * 122
+                            return get
+
+                        case "mujer":
+                            get = paciente.peso * 117
+                            return get
+
+        case 2:
+            
+            # clasificar meteodo alimentacion
+            match modo_alimentacion:
+
+                # lactancia materna
+                case "lm":
+                    
+                    # clasificar genero
+                    match paciente.genero:
+
+                        case "hombre":
+                            get = paciente.peso * 98
+                            return get
+
+                        case "mujer":
+                            get = paciente.peso * 95
+                            return get
+                
+                # formula lactea
+                case "fla":
+                    
+                    # clasificar genero
+                    match paciente.genero:
+
+                        case "hombre":
+                            get = paciente.peso * 110
+                            return get
+
+                        case "mujer":
+                            get = paciente.peso * 108
+                            return get
+
+        case 3:
+            
+            # clasificar metodo alimentacion
+            match modo_alimentacion:
+
+                # lactancia materna
+                case "lm":
+                    
+                    # clasificar genero
+                    match paciente.genero:
+
+                        case "hombre":
+                            get = paciente.peso * 91
+                            return get
+
+                        case "mujer":
+                            get = paciente.peso * 90
+                            return get
+
+                # formula lactea
+                case "fla":
+                    
+                    #clasificar genero
+                    match paciente.genero:
+
+                        case "hombre":
+                            get = paciente.peso * 100
+                            return get
+
+
+                        case "mujer":
+                            get = paciente.peso * 108
+                            return get
+
+        case 4:
+            
+            # clasificar metodo alimentacion
+            match modo_alimentacion:
+                
+                # lactancia materna
+                case "lm":
+                    
+                    # clasificar genero
+                    match paciente.genero:
+
+                        case "hombre":
+                            get = paciente.peso * 79
+                            return get
+
+                        case "mujer":
+                            get = paciente.peso * 80
+                            return get
+
+                # formula lactea
+                case "fla":
+                    
+                    # clasificar genero
+                    match paciente.genero:
+
+                        case "hombre":
+                            get = paciente.peso * 86
+                            return get
+
+                        case "mujer":
+                            get = paciente.peso * 89
+                            return get
+
+        case 5:
+            
+            # clasificar metodo alimentacion
+            match modo_alimentacion:
+
+                # leche materna
+                case "lm":
+                    
+                    # clasificar genero
+                    match paciente.genero:
+
+                        case "hombre":
+                            get = paciente.peso * 79
+                            return get
+                        
+                        case "mujer":
+                            get = paciente.peso * 79
+                            return get
+
+                # formula lactea
+                case "fla":
+                    
+                    # clasificar genero
+                    match paciente.genero:
+
+                        case "hombre":
+                            get = paciente.peso * 85
+                            return get
+                        
+                        case "mujer":
+                            get = paciente.peso * 87 
+                            return get
+
+        case 6: 
+            
+            # clasificar metodo alimentacion
+            match modo_alimentacion:
+
+                # lactancia materna
+                case "lm":
+                    
+                    # clasificar genero
+                    match paciente.genero:
+
+                        case "hombre":
+                            get = paciente.peso * 78
+                            return get
+                        
+                        case "mujer":
+                            get = paciente.peso * 79
+                            return get
+
+                # formula lactea
+                case "fla":
+                    
+                    # clasificar genero
+                    match paciente.genero:
+
+                        case "hombre":
+                            get = paciente.peso * 83
+                            return get
+                        
+                        case "mujer":
+                            get = paciente.peso * 85
+                            return get
+
+        case 7:
+            
+            # clasificar metodo alimentacion
+            match modo_alimentacion:
+
+                # lactancia materna
+                case "lm":
+                    
+                    # clasificar genero
+                    match paciente.genero:
+
+                        case "hombre":
+                            get = paciente.peso * 76
+                            return get
+                        
+                        case "mujer":
+                            get = paciente.peso * 76
+                            return get
+
+                # formula lactea
+                case "fla":
+                    
+                    # clasificar genero
+                    match paciente.genero:
+
+                        case "hombre":
+                            get = paciente.peso * 81
+                            return get
+                        
+                        case "mujer":
+                            get = paciente.peso * 81
+                            return get
+
+        case 8:
+            
+            # clasificar metodo alimentacion
+            match modo_alimentacion:
+                
+                # lactancia materna
+                case "lm":
+                    
+                    # clasificar genero
+                    match paciente.genero:
+
+                        case "hombre":
+                            get = paciente.peso * 77
+                            return get
+                        
+                        case "mujer":
+                            get = paciente.peso * 76
+                            return get
+
+                # formula lactea
+                case "fla":
+                    
+                    # clasificar genero
+                    match paciente.genero:
+
+                        case "hombre":
+                            get = paciente.peso * 81
+                            return get
+                        
+                        case "mujer":
+                            get = paciente.peso * 81
+                            return get
+
+        case 9:
+            
+            # clasificar metodo alimentacion
+            match modo_alimentacion:
+
+                # lactancia materna
+                case "lm":
+                    
+                    # clasificar genero
+                    match paciente.genero:
+
+                        case "hombre":
+                            get = paciente.peso * 77
+                            return get
+                        
+                        case "mujer":
+                            get = paciente.peso * 76
+                            return get
+
+                # formula lactea
+                case "fla":
+                    
+                    # clasificar genero
+                    match paciente.genero:
+
+                        case "hombre":
+                            get = paciente.peso * 81
+                            return get
+                        
+                        case "mujer":
+                            get = paciente.peso * 81
+                            return get
+        
+        # para meses 10 al 12
+        case 10 | 11 | 12:
+            
+            # clasificar metodo alimentacion
+            match modo_alimentacion:
+
+                # lactancia materna
+                case "lm":
+                    
+                    # clasificar genero
+                    match paciente.genero:
+
+                        case "hombre":
+                            get = paciente.peso * 79
+                            return get
+                        
+                        case "mujer":
+                            get = paciente.peso * 77
+                            return get
+
+                # formula lactea
+                case "fla":
+                    
+                    # clasificar genero
+                    match paciente.genero:
+
+                        case "hombre":
+                            get = paciente.peso * 82
+                            return get
+                        
+                        case "mujer":
+                            get = paciente.peso * 81
+                            return get
+                        
+# formula fao oms unu 2004 para menores -> devuelve GET listo
+def fao_oms_onu_menores(paciente, actividad_fisica):
+    """
+    Calcula el get segun edad y 
+    actividad fisica, devolviendolo
+    """
+
+    # diccionario con todos los factores segun edad y genero
+    factores = {
+        1:{
+            "hombre":{
+                "af ligera": False,
+                "af moderada": 82
+                },
+
+            "mujer":{
+                "af ligera": False,
+                "af moderada": 80
+                }
+        },
+
+        2:{
+            "hombre":{
+                "af ligera": False,
+                "af moderada": 84
+            },
+
+            "mujer":{
+                "af ligera": False,
+                "af moderada": 81
+            }
+
+        },
+
+        3:{
+            "hombre":{
+                "af ligera": False,
+                "af moderada": 80
+            },
+
+            "mujer":{
+                "af ligera": False,
+                "af moderada": 77
+            }
+        },
+
+        4:{
+            "hombre":{
+                "af ligera": False,
+                "af moderada": 77
+            },
+
+            "mujer":{
+                "af ligera": False,
+                "af moderada": 74
+            }
+        },
+
+        5:{
+            "hombre":{
+                "af ligera": False,
+                "af moderada": 74
+            },
+
+            "mujer":{
+                "af ligera": False,
+                "af moderada": 72
+            }
+        },
+
+        6:{
+            "hombre":{
+                "af ligera": 62,
+                "af moderada": 73
+            },
+            
+            "mujer":{
+                "af ligera": 59,
+                "af moderada": 69
+            }
+        },
+
+        7:{
+            "hombre":{
+                "af ligera": 60,
+                "af moderada": 71
+            },
+
+            "mujer":{
+                "af ligera": 57,
+                "af moderada": 67
+            }
+        },
+
+        8:{
+            "hombre":{
+                "af ligera": 59,
+                "af moderada": 69
+            },
+
+            "mujer":{
+                "af ligera": 54,
+                "af moderada": 64
+            }
+        },
+
+        9:{
+            "hombre":{
+                "af ligera": 56,
+                "af moderada": 67
+            },
+
+            "mujer":{
+                "af ligera": 52,
+                "af moderada": 61
+            }
+        },
+
+        10:{
+            "hombre":{
+                "af ligera": 55,
+                "af moderada": 65
+            },
+
+            "mujer":{
+                "af ligera": 49,
+                "af moderada": 58
+            }
+        },
+
+        11:{
+            "hombre":
+            {
+                "af ligera": 53,
+                "af moderada": 62
+            },
+
+            "mujer":{
+                "af ligera": 47,
+                "af moderada": 55
+            }
+        },
+
+        12:{
+            "hombre":{
+                "af ligera": 51,
+                "af moderada": 60
+            },
+            
+            "mujer":{
+                "af ligera": 44,
+                "af moderada": 52
+            }
+        },
+
+        13:{
+            "hombre":{
+                "af ligera": 49,
+                "af moderada": 58
+            },
+
+            "mujer":{
+                "af ligera": 42,
+                "af moderada": 49
+            }
+        },
+
+        14:{
+            "hombre":{
+                "af ligera": 48,
+                "af moderada": 56
+            },
+
+            "mujer":{
+                "af ligera": 40,
+                "af moderada": 47
+            }
+        },
+
+        15:{
+            "hombre":{
+                "af ligera": 45,
+                "af moderada": 53
+            },
+
+            "mujer":{
+                "af ligera": 39,
+                "af moderada": 45 
+            }
+        },
+
+        16:{
+            "hombre":{
+                "af ligera": 44,
+                "af moderada": 52
+            },
+
+            "mujer":{
+                "af ligera": 38,
+                "af moderada": 44
+            }
+        },
+
+        17:{
+            "hombre":{
+                "af ligera": 43,
+                "af moderada": 50
+            },
+
+            "mujer":{
+                "af ligera": 37,
+                "af moderada":44
+            }
+        }
+    }
+
+
+    # itinerar en factores para tener el indicado
+    factor = factores[paciente.edad][paciente.genero][actividad_fisica]
+
+    if not factor:
+        print("La edad del paciente es inválida, utiliza otra")
+    
+    else:
+        get = paciente.peso * factor
+        return get

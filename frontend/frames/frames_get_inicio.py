@@ -98,6 +98,35 @@ class GetInicioFrame(ctk.CTkFrame):
         self.label_delta_negativo = ctk.CTkLabel(panel_der, text="Delta Negativo:")
         self.selector_delta_negativo = ctk.CTkEntry(panel_der)
 
+        self.label_meses = ctk.CTkLabel(panel_der, text="Meses:")
+        self.entry_meses = ctk.CTkEntry(panel_der)
+
+
+        self.label_modo_alimentacion = ctk.CTkLabel(panel_der, text="Método Alimentación")
+        self.selector_modo_alimentacion = ctk.CTkOptionMenu(panel_der,
+                                                        values=["LM", "FLA"],
+                                                        width=240,
+                                                        height=35,
+                                                        fg_color="#6A0DAD",
+                                                        button_color="#5a089e",
+                                                        text_color="white",
+                                                        dropdown_fg_color="white",
+                                                        dropdown_hover_color="#d6c1e8",
+                                                        dropdown_text_color="#333")
+        
+
+        self.label_actividad_fisica = ctk.CTkLabel(panel_der, text="Nivel Actividad Física")
+        self.selector_actividad_fisica = ctk.CTkOptionMenu(panel_der,
+                                                        values=["AF Ligera", "AF Moderada"],
+                                                        width=240,
+                                                        height=35,
+                                                        fg_color="#6A0DAD",
+                                                        button_color="#5a089e",
+                                                        text_color="white",
+                                                        dropdown_fg_color="white",
+                                                        dropdown_hover_color="#d6c1e8",
+                                                        dropdown_text_color="#333")
+
         # ------ Botón Calcular ------
         btn_calcular = ctk.CTkButton(self,
                                      text="Calcular",
@@ -128,6 +157,12 @@ class GetInicioFrame(ctk.CTkFrame):
         self.selector_sub_formula.pack_forget()
         self.label_delta_negativo.pack_forget()
         self.selector_delta_negativo.pack_forget()
+        self.label_meses.pack_forget()
+        self.entry_meses.pack_forget()
+        self.label_modo_alimentacion.pack_forget()
+        self.selector_modo_alimentacion.pack_forget()
+        self.label_actividad_fisica.pack_forget()
+        self.selector_actividad_fisica.pack_forget()
 
         # Mostrar según fórmula
         if seleccionada == "Método Factorial":
@@ -143,6 +178,18 @@ class GetInicioFrame(ctk.CTkFrame):
         elif seleccionada == "Factorial de Carrasco":
             self.label_sub_formula.pack(pady=(10, 0))
             self.selector_sub_formula.pack()
+        
+        elif seleccionada == "FAO-OMS-UNU Bebés":
+            self.label_meses.pack(pady=(10, 0))
+            self.entry_meses.pack(pady=(10, 0))
+            self.label_modo_alimentacion.pack(pady=(10, 0))
+            self.selector_modo_alimentacion.pack()
+        
+
+        elif seleccionada == "FAO-OMS-UNU Niños":
+            self.label_actividad_fisica.pack(pady=(10, 0))
+            self.selector_actividad_fisica.pack()
+
 
 
     def actualizar_subformulas(self, *args):
@@ -180,6 +227,21 @@ class GetInicioFrame(ctk.CTkFrame):
                 validar_edad_menor(edad)
                 crecimiento = validar_flotante(self.entry_crecimiento.get(), "Crecimiento")
                 f_desnutricion = validar_flotante(self.entry_desnutricion.get(), "Factor Desnutrición")
+            
+
+            elif formula == "FAO-OMS-UNU Bebés":
+                meses = validar_entero(self.entry_meses.get(), "Meses")
+
+            elif formula == "FAO-OMS-UNU Niños":
+                nivel_actividad_fisica = self.selector_actividad_fisica.get().lower()
+                
+
+                if edad > 17:
+                    raise ValueError ('La edad "máxima para FAO-OMS-UNU Niños" es de 17 años.')
+                
+                elif nivel_actividad_fisica == "af ligera" and 1 <= edad <= 5:
+                    raise ValueError ("Para usar AF ligera, la edad mínima es de 6 años.")
+                
 
             self.label_error.grid_remove()
         
@@ -253,6 +315,17 @@ class GetInicioFrame(ctk.CTkFrame):
                             else:
                                 get = rendondear(factorial_carrasco(paciente, "restriccion calorica", delta_negativo))
                                 print(get)
+                
+
+                case "FAO-OMS-UNU Bebés":
+                    modo_alimentacion = self.selector_modo_alimentacion.get().lower()
+                    get = rendondear(fao_oms_onu_bebes(paciente, meses, modo_alimentacion))
+                    print(get)
+                
+
+                case "FAO-OMS-UNU Niños":
+                    get = rendondear(fao_oms_onu_menores(paciente, nivel_actividad_fisica))
+                    print(get)
 
                             
                 
