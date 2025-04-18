@@ -14,8 +14,8 @@ formulas = ["Predictiva Get",
             "Schofield Peso",
             "Schofield Peso y Talla",
             "Factorial de Carrasco",
-            "FAO-OMS-UNU Bebés",
-            "FAO-OMS-UNU Niños"]
+            "FAO-OMS-UNU < 1 año",
+            "FAO-OMS-UNU  > 1 año"]
 
 sub_formulas_carrasco = ["Mantenimiento",
                          "Con enfermedad",
@@ -262,19 +262,19 @@ def schofield_peso(paciente, crecimiento, f_desnutricion):
         if 0 <= edad <= 3:
             ger = 59.48 * paciente.peso - 30.33
             get = calcular_get_scho(paciente, ger, f_desnutricion)
-            get_total = get * crecimiento
+            get_total = get + crecimiento
             return get_total
     
         elif 4 <= edad <= 10:
             ger = 22.7 * paciente.peso + 505
             get = calcular_get_scho(paciente, ger, f_desnutricion)
-            get_total = get * crecimiento
+            get_total = get + crecimiento
             return get_total
         
         elif 11 <= edad <= 18:
             ger = 13.4 * paciente.peso + 693
             get = calcular_get_scho(paciente, ger, f_desnutricion)
-            get_total = get * crecimiento
+            get_total = get + crecimiento
             return get_total
     
     # validacion mujer
@@ -284,19 +284,19 @@ def schofield_peso(paciente, crecimiento, f_desnutricion):
         if 0 <= edad <= 3:
             ger = 58.29 * paciente.peso - 31.05
             get = calcular_get_scho(paciente, ger, f_desnutricion)
-            get_total = get * crecimiento
+            get_total = get + crecimiento
             return get_total
     
         elif 4 <= edad <= 10:
             ger = 20.3 * paciente.peso + 486
             get = calcular_get_scho(paciente, ger, f_desnutricion)
-            get_total = get * crecimiento
+            get_total = get + crecimiento
             return get_total
         
         elif 11 <= edad <= 18:
             ger = 17.7 * paciente.peso + 659
             get = calcular_get_scho(paciente, ger, f_desnutricion)
-            get_total = get * crecimiento
+            get_total = get + crecimiento
             return get_total
 
 # formula schofield peso talla -> (GER (faf + fp + fd -2)) + crecimiento
@@ -313,19 +313,19 @@ def schofield_peso_talla(paciente, crecimiento, f_desnutricion):
         if 0 <= edad <= 3:
             ger = 0.167 * paciente.peso + 1517.4 * paciente.altura - 617.5
             get = calcular_get_scho(paciente, ger, f_desnutricion)
-            get_total = get * crecimiento
+            get_total = get + crecimiento
             return get_total
 
         elif 4 <= edad <= 10:
             ger = 19.6 * paciente.peso + 130.3 * paciente.altura + 414.9
             get = calcular_get_scho(paciente, ger, f_desnutricion)
-            get_total = get * crecimiento
+            get_total = get + crecimiento
             return get_total
 
         elif 11 <= edad <= 18:
             ger = 16.25 * paciente.peso + 137.2 * paciente.altura + 515.5
             get = calcular_get_scho(paciente, ger, f_desnutricion)
-            get_total = get * crecimiento
+            get_total = get + crecimiento
             return get_total
 
     # validacion genero mujer
@@ -335,19 +335,19 @@ def schofield_peso_talla(paciente, crecimiento, f_desnutricion):
         if 0 <= edad <= 3:
             ger = 16.25 * paciente.peso + 1023.2 * paciente.altura - 413.5
             get = calcular_get_scho(paciente, ger, f_desnutricion)
-            get_total = get * crecimiento
+            get_total = get + crecimiento
             return get_total
 
         elif 4 <= edad <= 10:
             ger = 16.97 * paciente.peso + 161.8 * paciente.altura + 371.2
             get = calcular_get_scho(paciente, ger, f_desnutricion)
-            get_total = get * crecimiento
+            get_total = get + crecimiento
             return get_total
 
         elif 11 <= edad <= 18:
             ger = 8.365 * paciente.peso + 465 * paciente.altura + 200
             get = calcular_get_scho(paciente, ger, f_desnutricion)
-            get_total = get * crecimiento
+            get_total = get + crecimiento
             return get_total
 
 # formula factorial de carrasco -> devuelve GET listo

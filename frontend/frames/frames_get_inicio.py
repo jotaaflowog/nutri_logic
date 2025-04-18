@@ -179,14 +179,14 @@ class GetInicioFrame(ctk.CTkFrame):
             self.label_sub_formula.pack(pady=(10, 0))
             self.selector_sub_formula.pack()
         
-        elif seleccionada == "FAO-OMS-UNU Bebés":
+        elif seleccionada == "FAO-OMS-UNU < 1 año":
             self.label_meses.pack(pady=(10, 0))
             self.entry_meses.pack(pady=(10, 0))
             self.label_modo_alimentacion.pack(pady=(10, 0))
             self.selector_modo_alimentacion.pack()
         
 
-        elif seleccionada == "FAO-OMS-UNU Niños":
+        elif seleccionada == "FAO-OMS-UNU  > 1 año":
             self.label_actividad_fisica.pack(pady=(10, 0))
             self.selector_actividad_fisica.pack()
 
@@ -229,15 +229,15 @@ class GetInicioFrame(ctk.CTkFrame):
                 f_desnutricion = validar_flotante(self.entry_desnutricion.get(), "Factor Desnutrición")
             
 
-            elif formula == "FAO-OMS-UNU Bebés":
+            elif formula == "FAO-OMS-UNU < 1 año":
                 meses = validar_entero(self.entry_meses.get(), "Meses")
 
-            elif formula == "FAO-OMS-UNU Niños":
+            elif formula == "FAO-OMS-UNU  > 1 año":
                 nivel_actividad_fisica = self.selector_actividad_fisica.get().lower()
                 
 
                 if edad > 17:
-                    raise ValueError ('La edad "máxima para FAO-OMS-UNU Niños" es de 17 años.')
+                    raise ValueError ('La edad "máxima para FAO-OMS-UNU  > 1 año" es de 17 años.')
                 
                 elif nivel_actividad_fisica == "af ligera" and 1 <= edad <= 5:
                     raise ValueError ("Para usar AF ligera, la edad mínima es de 6 años.")
@@ -317,13 +317,13 @@ class GetInicioFrame(ctk.CTkFrame):
                                 print(get)
                 
 
-                case "FAO-OMS-UNU Bebés":
+                case "FAO-OMS-UNU < 1 año":
                     modo_alimentacion = self.selector_modo_alimentacion.get().lower()
                     get = rendondear(fao_oms_onu_bebes(paciente, meses, modo_alimentacion))
                     print(get)
                 
 
-                case "FAO-OMS-UNU Niños":
+                case "FAO-OMS-UNU  > 1 año":
                     get = rendondear(fao_oms_onu_menores(paciente, nivel_actividad_fisica))
                     print(get)
 
