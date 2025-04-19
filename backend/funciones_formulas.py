@@ -168,7 +168,7 @@ def calcular_g_macros(kcal_macros):
     return g_macros
 
 # calcular gramos por dia por peso macros
-def calcular_g_peso(paciente, g_macros):
+def calcular_g_peso(peso, g_macros):
     """
     Calcula los gramos por peso 
     y por dia de cada macro
@@ -178,7 +178,7 @@ def calcular_g_peso(paciente, g_macros):
 
     for macro, gramos in g_macros.items():
 
-        g_peso_macros[macro] = gramos / paciente.peso
+        g_peso_macros[macro] = gramos / peso
     
     
     return g_peso_macros

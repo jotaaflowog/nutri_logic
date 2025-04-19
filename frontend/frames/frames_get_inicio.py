@@ -6,6 +6,7 @@ from backend.pacientes import Paciente
 class GetInicioFrame(ctk.CTkFrame):
     def __init__(self, master, cambiar_frame_callback):
         super().__init__(master)
+        self.cambiar_frame_callback = cambiar_frame_callback
         self.configure(fg_color="#F9F9FB")
         self.grid_columnconfigure((0, 1), weight=1)
 
@@ -140,11 +141,40 @@ class GetInicioFrame(ctk.CTkFrame):
                                      command=self.calcular_get)
         btn_calcular.grid(row=1, column=0, columnspan=2, pady=(20, 10))
 
-        self.label_error = ctk.CTkLabel(self, text="", text_color="red", font=("Segoe UI", 12))
-        self.label_error.grid(row=2, column=0, columnspan=2)
+       
+        # Frame inferior que contiene botón y mensaje de error
+        frame_inferior = ctk.CTkFrame(self, fg_color="transparent")
+        frame_inferior.grid(row=99, column=0, columnspan=2, sticky="sew", padx=20, pady=(0, 20))
+
+        # Configurar columnas del frame_inferior
+        frame_inferior.grid_columnconfigure(0, weight=0)  # Botón izquierda
+        frame_inferior.grid_columnconfigure(1, weight=1)  # Espacio expansivo
+        frame_inferior.grid_columnconfigure(2, weight=0)  # Label de error
+
+        # Botón alineado a la izquierda
+        self.btn_volver_inicio = ctk.CTkButton(
+            frame_inferior,
+            text="← Volver al inicio",
+            width=180,
+            fg_color="#6A0DAD",
+            text_color="white",
+            corner_radius=14,
+            command= self.volver_inicio
+        )
+        self.btn_volver_inicio.grid(row=0, column=0, sticky="w")
+
+        # Label de error con alineación visual centrada respecto al ancho de la ventana
+        self.label_error = ctk.CTkLabel(
+            frame_inferior,
+            text="",
+            text_color="red",
+            font=("Segoe UI", 12)
+        )
+        self.label_error.grid(row=0, column=2, sticky="", padx=(0, 272)) 
         self.label_error.grid_remove()
 
-    
+
+
     def actualizar_campos_extras(self, seleccionada):
         # Ocultar todos
         self.label_factor.pack_forget()
@@ -327,7 +357,45 @@ class GetInicioFrame(ctk.CTkFrame):
                     get = rendondear(fao_oms_onu_menores(paciente, nivel_actividad_fisica))
                     print(get)
 
-                            
+
+            # pasar el siguiente frame
+            self.cambiar_frame_callback("get_tabla")
+            self.master.frames["get_tabla"].set_resultado(get, peso)
+
+    def volver_inicio(self):
+
+        # Limpiar campos de entrada básicos
+        self.entrada_edad.delete(0, "end")
+        self.entrada_altura.delete(0, "end")
+        self.entrada_peso.delete(0, "end")
+        self.fp.delete(0, "end")
+        self.faf.delete(0, "end")
+
+        # Restaurar el selector de género
+        self.genero.set("Hombre")
+
+        # Restaurar la fórmula a la predeterminada
+        self.selector_formula.set("Predictiva Get")
+
+        # Limpiar y ocultar campos adicionales
+        self.entry_factor.delete(0, "end")
+        self.entry_crecimiento.delete(0, "end")
+        self.entry_desnutricion.delete(0, "end")
+        self.entry_meses.delete(0, "end")
+        self.selector_delta_negativo.delete(0, "end")
+
+        self.actualizar_campos_extras("Predictiva Get")
+
+        # Restaurar sub formularios a valor por defecto
+        self.selector_sub_formula.set("Mantenimiento")
+        self.selector_modo_alimentacion.set("LM")
+        self.selector_actividad_fisica.set("AF Ligera")
+
+        # Ocultar errores si hay alguno visible
+        self.label_error.configure(text="")
+        self.label_error.grid_remove()   
+
+        self.cambiar_frame_callback("inicio")                  
                 
 
 
