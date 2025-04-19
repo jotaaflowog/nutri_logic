@@ -113,9 +113,9 @@ class GetTablaFrame(ctk.CTkFrame):
         porcentajes_macros = {}
 
         try:
-            porcentaje_prote = validar_entero(self.entry_porcentaje_prote.get(), "Porcentaje Proteína")
-            porcentaje_grasa = validar_entero(self.entry_porcentaje_grasa.get(), "Porcentaje Grasas")
-            porcentaje_carb = validar_entero(self.entry_porcentaje_carb.get(), "Porcentaje CHO")
+            porcentaje_prote = validar_entero(self.entry_porcentaje_prote, "Porcentaje Proteína")
+            porcentaje_grasa = validar_entero(self.entry_porcentaje_grasa, "Porcentaje Grasas")
+            porcentaje_carb = validar_entero(self.entry_porcentaje_carb, "Porcentaje CHO")
 
             self.label_error.grid_remove()
 

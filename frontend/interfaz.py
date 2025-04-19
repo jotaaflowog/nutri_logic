@@ -11,6 +11,7 @@ class NutriLogicApp(ctk.CTk):
 
         self.title("NutriLogic")
         self.geometry("800x600")
+        self.iconbitmap("fotos/Logo NutriLogic.ico")
         self.resizable(False, False)
 
         # Frames

@@ -194,22 +194,165 @@ class GetInicioFrame(ctk.CTkFrame):
         self.label_actividad_fisica.pack_forget()
         self.selector_actividad_fisica.pack_forget()
 
-        # Mostrar según fórmula
-        if seleccionada == "Método Factorial":
+        # habilitar o desabilitar campos por formula
+        if seleccionada == "Predictiva Get":
+
+            # campos para activar
+            campos_activar = [
+                self.entrada_edad,
+                self.entrada_altura,
+                self.entrada_peso,
+                self.genero,
+                self.fp,
+                self.faf
+                
+            ]
+            habilitar_campos(campos_activar)
+        
+        elif seleccionada == "Harris-Benedit":
+            
+            # campos para activar
+            campos_activar = [
+                self.entrada_edad,
+                self.entrada_altura,
+                self.entrada_peso,
+                self.genero,
+                self.fp,
+                self.faf
+            ]
+
+            habilitar_campos(campos_activar)
+        
+        elif seleccionada == "Mifflin":
+            
+            # campos para activar
+            campos_activar = [
+                self.entrada_edad,
+                self.entrada_altura,
+                self.entrada_peso,
+                self.genero,
+                self.fp,
+                self.faf
+            ]
+
+            habilitar_campos(campos_activar)
+        
+        elif seleccionada == "OMS":
+
+            # campos para activar
+            campos_activar = [
+                self.entrada_edad,
+                self.entrada_peso,
+                self.genero,
+                self.fp,
+                self.faf
+            ]
+
+            habilitar_campos(campos_activar)
+
+            # campos para deshabilitar
+            campos_desactivar = [
+                self.entrada_altura
+            ]
+
+            deshabilitar_campos(campos_desactivar)
+
+        elif seleccionada == "Método Factorial":
+
+            # campos para activar
+            campos_activar = [
+                self.entrada_peso
+            ]
+
+            habilitar_campos(campos_activar)
+
+            # campos para desactivar
+            campos_desactivar = [
+                self.entrada_edad,
+                self.entrada_altura,
+                self.genero,
+                self.fp,
+                self.faf
+            ]
+
+            deshabilitar_campos(campos_desactivar)
+            
+            # campos exclusivos de formula
             self.label_factor.pack(pady=(10, 0))
             self.entry_factor.pack()
 
         elif seleccionada in ["Schofield Peso", "Schofield Peso y Talla"]:
+
+            # campos para activar en comun
+            campos_activar = [
+                self.entrada_edad,
+                self.entrada_peso,
+                self.genero,
+                self.fp,
+                self.faf
+            ]
+
+            habilitar_campos(campos_activar)
+
+            # habilitar o desactivar campo segun cual sea
+            match seleccionada:
+                
+                case "Schofield Peso":
+                    # desactivar campo
+                    campos_desactivar = [self.entrada_altura]
+                    deshabilitar_campos(campos_desactivar)
+
+                case _:
+                    # activar campo
+                    campos_activar = [self.entrada_altura]
+                    habilitar_campos(campos_activar)
+
+            # campos exclusivos de formula
             self.label_crecimiento.pack(pady=(10, 0))
             self.entry_crecimiento.pack()
             self.label_desnutricion.pack(pady=(10, 0))
             self.entry_desnutricion.pack()
         
         elif seleccionada == "Factorial de Carrasco":
+            
+            # campos para activar
+            campos_activar = [
+                self.entrada_edad,
+                self.entrada_peso,
+                self.genero,
+                self.faf
+            ]
+            habilitar_campos(campos_activar)
+
+            # campos para desactivar
+            campos_desactivar = [
+                self.entrada_altura
+            ]
+            deshabilitar_campos(campos_desactivar)
+
+            # campos exclusivos de formula
             self.label_sub_formula.pack(pady=(10, 0))
             self.selector_sub_formula.pack()
         
         elif seleccionada == "FAO-OMS-UNU < 1 año":
+
+            # campos para activar
+            campos_activar = [
+                self.entrada_peso,
+                self.genero
+            ]
+            habilitar_campos(campos_activar)
+
+            # campos para desactivar
+            campos_desactivar = [
+                self.entrada_edad,
+                self.entrada_altura,
+                self.fp,
+                self.faf
+            ]
+            deshabilitar_campos(campos_desactivar)
+
+            # campos exclusivos de la formula
             self.label_meses.pack(pady=(10, 0))
             self.entry_meses.pack(pady=(10, 0))
             self.label_modo_alimentacion.pack(pady=(10, 0))
@@ -217,9 +360,25 @@ class GetInicioFrame(ctk.CTkFrame):
         
 
         elif seleccionada == "FAO-OMS-UNU  > 1 año":
+
+            # campos para activar
+            campos_activar = [
+                self.entrada_edad,
+                self.entrada_peso,
+                self.genero
+            ]
+            habilitar_campos(campos_activar)
+
+            # campos para desactivar
+            campos_desactivar = [
+                self.fp,
+                self.faf
+            ]
+            deshabilitar_campos(campos_desactivar)
+
+            # campos exclusivos de la formula
             self.label_actividad_fisica.pack(pady=(10, 0))
             self.selector_actividad_fisica.pack()
-
 
 
     def actualizar_subformulas(self, *args):
@@ -230,8 +389,21 @@ class GetInicioFrame(ctk.CTkFrame):
         self.selector_delta_negativo.pack_forget()
 
         if subformula == "Restricción Calórica":
+
+            # deshabilitar campo
+            deshabilitar_campos([self.fp])
+
             self.label_delta_negativo.pack(pady=(10, 0))
             self.selector_delta_negativo.pack()
+        
+        elif subformula == "Con enfermedad":
+            # habilitar campo
+            habilitar_campos([self.fp])
+        
+        else:
+            # deshabilitar campo
+            deshabilitar_campos([self.fp])
+
 
     def calcular_get(self):
         
@@ -241,26 +413,26 @@ class GetInicioFrame(ctk.CTkFrame):
 
        
         try:
-            edad = validar_entero(self.entrada_edad.get(), "Edad")
-            peso = validar_entero(self.entrada_peso.get(), "Peso")
-            altura = validar_flotante(self.entrada_altura.get(), "Altura")
-            fp = validar_flotante(self.fp.get(), "Factor Patológico")
-            faf = validar_flotante(self.faf.get(), "Factor Actividad Física")
+            edad = validar_entero(self.entrada_edad, "Edad")
+            peso = validar_entero(self.entrada_peso, "Peso")
+            altura = validar_flotante(self.entrada_altura, "Altura")
+            fp = validar_flotante(self.fp, "Factor Patológico")
+            faf = validar_flotante(self.faf, "Factor Actividad Física")
 
             # comprobar errores en datos formulas
             if formula == "Método Factorial":
                 
-                factor = validar_flotante(self.entry_factor.get(), "Factor")
+                factor = validar_flotante(self.entry_factor, "Factor")
 
             elif formula in ["Schofield Peso", "Schofield Peso y Talla"]:
                 
                 validar_edad_menor(edad)
-                crecimiento = validar_flotante(self.entry_crecimiento.get(), "Crecimiento")
-                f_desnutricion = validar_flotante(self.entry_desnutricion.get(), "Factor Desnutrición")
+                crecimiento = validar_flotante(self.entry_crecimiento, "Crecimiento")
+                f_desnutricion = validar_flotante(self.entry_desnutricion, "Factor Desnutrición")
             
 
             elif formula == "FAO-OMS-UNU < 1 año":
-                meses = validar_entero(self.entry_meses.get(), "Meses")
+                meses = validar_entero(self.entry_meses, "Meses")
 
             elif formula == "FAO-OMS-UNU  > 1 año":
                 nivel_actividad_fisica = self.selector_actividad_fisica.get().lower()
@@ -298,7 +470,7 @@ class GetInicioFrame(ctk.CTkFrame):
                     get = rendondear(harris_benedit(paciente))
                     print(get)
                 
-                case "Miffin":
+                case "Mifflin":
                     get = rendondear(mifflin(paciente))
                     print(get)
 
@@ -394,6 +566,13 @@ class GetInicioFrame(ctk.CTkFrame):
         # Ocultar errores si hay alguno visible
         self.label_error.configure(text="")
         self.label_error.grid_remove()   
+
+        # volver a activar los campos
+        campos_activar = [
+            self.faf
+        ]
+
+        habilitar_campos(campos_activar)
 
         self.cambiar_frame_callback("inicio")                  
                 

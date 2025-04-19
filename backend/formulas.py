@@ -8,7 +8,7 @@ from backend.funciones_formulas import *
 # lista con todas las formulas
 formulas = ["Predictiva Get", 
             "Harris-Benedit",
-            "Miffin",
+            "Mifflin",
             "OMS",
             "Método Factorial",
             "Schofield Peso",
