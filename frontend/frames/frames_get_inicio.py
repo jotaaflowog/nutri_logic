@@ -483,31 +483,31 @@ class GetInicioFrame(ctk.CTkFrame):
                  
                 case "Predictiva Get":
                     get = rendondear(predictiva_get(paciente))
-                    print(get)
+                    
                  
                 case  "Harris-Benedit":
                     get = rendondear(harris_benedit(paciente))
-                    print(get)
+                    
                 
                 case "Mifflin":
                     get = rendondear(mifflin(paciente))
-                    print(get)
+                    
 
                 case "OMS":
                     get = rendondear(oms(paciente))
-                    print(get)
+                    
 
                 case "Método Factorial":
                     get = rendondear(metodo_factorial(paciente, factor))
-                    print(get)
+                    
                 
                 case "Schofield Peso":
                     get = rendondear(schofield_peso(paciente, crecimiento, f_desnutricion))
-                    print(get)
+                    
                 
                 case "Schofield Peso y Talla":
                     get = rendondear(schofield_peso_talla(paciente, crecimiento, f_desnutricion))
-                    print(get)
+                    
 
                 case "Factorial de Carrasco":
                     
@@ -515,27 +515,27 @@ class GetInicioFrame(ctk.CTkFrame):
 
                         case "Mantenimiento":
                             get = rendondear(factorial_carrasco(paciente, "mantenimiento"))
-                            print(get)
+                            
                         
                         case "Con enfermedad":
                             get = rendondear(factorial_carrasco(paciente, "con enfermedad"))
-                            print(get)
+                            
                         
                         case "Restricción Calórica": 
                             get = rendondear(factorial_carrasco(paciente, "restriccion calorica", delta_negativo))
-                            print(get)
+                            
                                 
                 
 
                 case "FAO-OMS-UNU < 1 año":
                     modo_alimentacion = self.selector_modo_alimentacion.get().lower()
                     get = rendondear(fao_oms_onu_bebes(paciente, meses, modo_alimentacion))
-                    print(get)
+                    
                 
 
                 case "FAO-OMS-UNU  > 1 año":
                     get = rendondear(fao_oms_onu_menores(paciente, nivel_actividad_fisica))
-                    print(get)
+                    
 
 
             # pasar el siguiente frame
