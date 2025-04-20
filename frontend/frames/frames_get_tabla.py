@@ -117,6 +117,9 @@ class GetTablaFrame(ctk.CTkFrame):
             porcentaje_grasa = validar_entero(self.entry_porcentaje_grasa, "Porcentaje Grasas")
             porcentaje_carb = validar_entero(self.entry_porcentaje_carb, "Porcentaje CHO")
 
+            if porcentaje_carb + porcentaje_prote + porcentaje_grasa > 100:
+                raise ValueError("La suma de todos los macros no puede ser mayor a 100")
+
             self.label_error.grid_remove()
 
 

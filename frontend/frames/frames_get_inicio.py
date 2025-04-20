@@ -414,6 +414,9 @@ class GetInicioFrame(ctk.CTkFrame):
             fp = validar_flotante(self.fp, "Factor Patológico")
             faf = validar_flotante(self.faf, "Factor Actividad Física")
 
+            # creacion paciente
+            paciente = Paciente(edad, altura, peso, genero, fp, faf)
+
             # comprobar errores en datos formulas
             if formula == "Predictiva Get":
                  if edad <= 2:
@@ -438,6 +441,9 @@ class GetInicioFrame(ctk.CTkFrame):
                 if edad <= 17:
                     raise ValueError(f"La edad mímina para {formula} es de 18 años")
                 
+                imc = calcular_imc(paciente)
+                clasificar = clasificar_imc(paciente, imc)
+                
                 #sub_formulas
                 sub_formula = self.selector_sub_formula.get()
 
@@ -446,6 +452,9 @@ class GetInicioFrame(ctk.CTkFrame):
 
             elif formula == "FAO-OMS-UNU < 1 año":
                 meses = validar_entero(self.entry_meses, "Meses")
+
+                if meses > 12:
+                    raise ValueError("Solo pueden ser hasta 12 meses")
 
             elif formula == "FAO-OMS-UNU  > 1 año":
                 nivel_actividad_fisica = self.selector_actividad_fisica.get().lower()
@@ -467,9 +476,6 @@ class GetInicioFrame(ctk.CTkFrame):
         
         # en caso de ningun error
         else:
-
-            # creacion paciente
-            paciente = Paciente(edad, altura, peso, genero, fp, faf)
             
             
             # formula utilizada
@@ -504,7 +510,6 @@ class GetInicioFrame(ctk.CTkFrame):
                     print(get)
 
                 case "Factorial de Carrasco":
-                    
                     
                     match sub_formula:
 
