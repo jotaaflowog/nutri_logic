@@ -575,13 +575,6 @@ class GetInicioFrame(ctk.CTkFrame):
         self.label_error.configure(text="")
         self.label_error.grid_remove()   
 
-        # volver a activar los campos
-        campos_activar = [
-            self.faf
-        ]
-
-        habilitar_campos(campos_activar)
-
         self.cambiar_frame_callback("inicio")                  
                 
 

@@ -66,7 +66,7 @@ class GetTablaFrame(ctk.CTkFrame):
 
         # label de error
         self.label_error = ctk.CTkLabel(panel_inferior, text="", text_color="red")
-        self.label_error.grid(row=2, column=0, columnspan=3, pady=(5, 10))
+        self.label_error.grid(row=3, column=0, columnspan=3, pady=(5, 10))
         self.label_error.grid_remove()
 
         # tabla vacia inicial 
@@ -82,7 +82,7 @@ class GetTablaFrame(ctk.CTkFrame):
                                         text_color="white",
                                         corner_radius=14,
                                         command = self.accion_btn_atras)
-        self.btn_volver.grid(row=3, column=1, pady=(0, 10))
+        self.btn_volver.grid(row=4, column=1, pady=(0, 10))
 
         # Botón nuevo paciente
         self.btn_nuevo_paciente = ctk.CTkButton(panel_inferior,
@@ -92,7 +92,7 @@ class GetTablaFrame(ctk.CTkFrame):
                                                 text_color="white",
                                                 corner_radius=14,
                                                 command=self.nuevo_paciente)
-        self.btn_nuevo_paciente.grid(row=4, column=1, pady=(0, 10))
+        self.btn_nuevo_paciente.grid(row=5, column=1, pady=(0, 10))
 
 
 
@@ -102,11 +102,12 @@ class GetTablaFrame(ctk.CTkFrame):
         self.get = get_obtenido
         self.peso = peso_paciente
 
-        label_get = ctk.CTkLabel(self.panel_inferior,
-                                    text=f"GET total: {self.get} kcal/día",
-                                    font=("Segoe UI", 14, "bold"),
-                                    text_color="#6A0DAD")
-        label_get.grid(row=2, column=0, columnspan=3, pady=(0, 10))
+        self.label_get = ctk.CTkLabel(self.panel_inferior,
+                              text=f"GET total: {self.get} kcal/día",
+                              font=("Segoe UI", 14, "bold"),
+                              text_color="#6A0DAD")
+        self.label_get.grid(row=2, column=0, columnspan=3, pady=(0, 10))
+
 
     # calcular distribucion de macros
     def calcular_macros(self):
@@ -120,6 +121,8 @@ class GetTablaFrame(ctk.CTkFrame):
             if porcentaje_carb + porcentaje_prote + porcentaje_grasa > 100:
                 raise ValueError("La suma de todos los macros no puede ser mayor a 100")
 
+            elif porcentaje_carb + porcentaje_prote + porcentaje_grasa != 100:
+                raise ValueError("La suma de los porcentajes debe ser 100")
             self.label_error.grid_remove()
 
 
@@ -229,6 +232,7 @@ class GetTablaFrame(ctk.CTkFrame):
         self.entry_porcentaje_grasa.delete(0, "end")
         self.entry_porcentaje_carb.delete(0, "end")
 
+        self.label_get.destroy()
 
         self.get = None
         self.peso = None
@@ -240,31 +244,6 @@ class GetTablaFrame(ctk.CTkFrame):
 
         frame_inicio = self.master.frames["get_inicio"]
         
-        # Limpiar campos de entrada básicos
-        frame_inicio.entrada_edad.delete(0, "end")
-        frame_inicio.entrada_altura.delete(0, "end")
-        frame_inicio.entrada_peso.delete(0, "end")
-        frame_inicio.fp.delete(0, "end")
-        frame_inicio.faf.delete(0, "end")
-
-        # Restaurar el selector de género
-        frame_inicio.genero.set("Hombre")
-
-        # Restaurar la fórmula a la predeterminada
-        frame_inicio.selector_formula.set("Predictiva Get")
-
-        # Limpiar y ocultar campos adicionales
-        frame_inicio.entry_factor.delete(0, "end")
-        frame_inicio.entry_crecimiento.delete(0, "end")
-        frame_inicio.entry_desnutricion.delete(0, "end")
-        frame_inicio.entry_meses.delete(0, "end")
-        frame_inicio.selector_delta_negativo.delete(0, "end")
-
-        frame_inicio.actualizar_campos_extras("Predictiva Get")
-
-        # Restaurar sub formularios a valor por defecto
-        frame_inicio.selector_sub_formula.set("Mantenimiento")
-        frame_inicio.selector_modo_alimentacion.set("LM")
-        frame_inicio.selector_actividad_fisica.set("AF Ligera")
+        frame_inicio.volver_inicio()
 
         self.accion_btn_atras()
