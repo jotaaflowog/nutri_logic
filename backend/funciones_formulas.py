@@ -219,7 +219,7 @@ def clasificar_imc(paciente, imc):
             return "obesidad morbida"
         
         else:
-            print("error, no se puede calcular")
+           ValueError("El paciente no cumple con el IMC para esta fórmula")
     
     # adulto mayor
     elif paciente.edad >= 65:
@@ -238,10 +238,10 @@ def clasificar_imc(paciente, imc):
             return "obesidad morbida"
         
         else:
-            print("error, no se puede calcular")
+            ValueError("El paciente no cumple con el IMC para esta fórmula")
 
     else:
-        print("error, edad no aceptada")
+        ValueError("error, edad no aceptada")
 
 #  clasificar factorial
 def clasificar_factorial(paciente, clasificacion):

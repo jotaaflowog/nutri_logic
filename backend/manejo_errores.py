@@ -14,7 +14,13 @@ def validar_entero(valor, campo):
 
     else:
         try:
-            return int(valor.get())
+            numero = int(valor.get())
+
+            if numero <= 0:
+                raise ValueError
+                
+            else:
+                return numero
         
         except ValueError:
             raise ValueError(f"El campo '{campo}' está incorrecto o vacío.")
@@ -28,7 +34,13 @@ def validar_flotante(valor, campo):
     
     else:
         try:
-            return float(valor.get())
+            numero =  float(valor.get())
+
+            if numero <= 0:
+                raise ValueError
+
+            else:
+                return numero
         
         except ValueError:
             raise ValueError(f"El campo '{campo}' está incorrecto o vacío.")

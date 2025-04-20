@@ -318,17 +318,12 @@ class GetInicioFrame(ctk.CTkFrame):
             # campos para activar
             campos_activar = [
                 self.entrada_edad,
+                self.entrada_altura,
                 self.entrada_peso,
                 self.genero,
                 self.faf
             ]
             habilitar_campos(campos_activar)
-
-            # campos para desactivar
-            campos_desactivar = [
-                self.entrada_altura
-            ]
-            deshabilitar_campos(campos_desactivar)
 
             # campos exclusivos de formula
             self.label_sub_formula.pack(pady=(10, 0))
@@ -420,8 +415,16 @@ class GetInicioFrame(ctk.CTkFrame):
             faf = validar_flotante(self.faf, "Factor Actividad Física")
 
             # comprobar errores en datos formulas
-            if formula == "Método Factorial":
-                
+            if formula == "Predictiva Get":
+                 if edad <= 2:
+                    raise ValueError("El paciente tiene que ser mayor a 2 años para Predictiva GET")
+            
+            elif formula == "OMS":
+                if edad <= 17:
+                    raise ValueError(f"La edad mímina para {formula} es de 18 años")
+
+            elif formula == "Método Factorial":
+            
                 factor = validar_flotante(self.entry_factor, "Factor")
 
             elif formula in ["Schofield Peso", "Schofield Peso y Talla"]:
@@ -430,6 +433,16 @@ class GetInicioFrame(ctk.CTkFrame):
                 crecimiento = validar_flotante(self.entry_crecimiento, "Crecimiento")
                 f_desnutricion = validar_flotante(self.entry_desnutricion, "Factor Desnutrición")
             
+            elif formula == "Factorial de Carrasco":
+                
+                if edad <= 17:
+                    raise ValueError(f"La edad mímina para {formula} es de 18 años")
+                
+                #sub_formulas
+                sub_formula = self.selector_sub_formula.get()
+
+                if sub_formula == "Restricción Calórica":
+                    delta_negativo = validar_entero(self.selector_delta_negativo, "Delta Negativo")
 
             elif formula == "FAO-OMS-UNU < 1 año":
                 meses = validar_entero(self.entry_meses, "Meses")
@@ -492,8 +505,7 @@ class GetInicioFrame(ctk.CTkFrame):
 
                 case "Factorial de Carrasco":
                     
-                    #sub_formulas
-                    sub_formula = self.selector_sub_formula.get()
+                    
                     match sub_formula:
 
                         case "Mantenimiento":
@@ -505,18 +517,9 @@ class GetInicioFrame(ctk.CTkFrame):
                             print(get)
                         
                         case "Restricción Calórica": 
-                             
-                            try:
-                                delta_negativo = validar_entero(self.selector_delta_negativo.get(), "Delta Negativo")
-                                self.label_error.grid_remove()
-                            
-                            except ValueError as e:
-                                self.label_error.configure(text=str(e))
-                                self.label_error.grid()
-                            
-                            else:
-                                get = rendondear(factorial_carrasco(paciente, "restriccion calorica", delta_negativo))
-                                print(get)
+                            get = rendondear(factorial_carrasco(paciente, "restriccion calorica", delta_negativo))
+                            print(get)
+                                
                 
 
                 case "FAO-OMS-UNU < 1 año":
