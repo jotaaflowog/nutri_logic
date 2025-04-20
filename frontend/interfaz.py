@@ -1,8 +1,11 @@
+import os
 import customtkinter as ctk
 from frontend.frames.frames_inicio import InicioFrame
 from frontend.frames.frames_get_inicio import GetInicioFrame
 from frontend.frames.frames_get_tabla import GetTablaFrame
 from frontend.frames.frames_excel import ExcelFrame
+
+ruta_logo = os.path.join(os.path.dirname(__file__), '..', 'assets', 'Logo NutriLogic.ico')
 
 
 class NutriLogicApp(ctk.CTk):
@@ -11,7 +14,7 @@ class NutriLogicApp(ctk.CTk):
 
         self.title("NutriLogic")
         self.geometry("800x600")
-        self.iconbitmap("fotos/Logo NutriLogic.ico")
+        self.iconbitmap(ruta_logo)
         self.resizable(False, False)
 
         # Frames
