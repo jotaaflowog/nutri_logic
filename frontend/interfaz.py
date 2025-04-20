@@ -1,11 +1,18 @@
 import os
+import sys
 import customtkinter as ctk
 from frontend.frames.frames_inicio import InicioFrame
 from frontend.frames.frames_get_inicio import GetInicioFrame
 from frontend.frames.frames_get_tabla import GetTablaFrame
 from frontend.frames.frames_excel import ExcelFrame
 
-ruta_logo = os.path.join(os.path.dirname(__file__), '..', 'assets', 'logo.ico')
+def obtener_ruta_recurso(ruta_relativa):
+    """Obtiene la ruta absoluta al recurso, compatible con PyInstaller."""
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, ruta_relativa)
 
 
 class NutriLogicApp(ctk.CTk):
@@ -14,7 +21,8 @@ class NutriLogicApp(ctk.CTk):
 
         self.title("NutriLogic")
         self.geometry("800x600")
-        self.iconbitmap(ruta_logo)
+        ruta_icono = obtener_ruta_recurso('assets/logo.ico')
+        self.iconbitmap(ruta_icono)
         self.resizable(False, False)
 
         # Frames
