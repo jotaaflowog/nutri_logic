@@ -5,7 +5,7 @@ from frontend.frames.frames_get_inicio import GetInicioFrame
 from frontend.frames.frames_get_tabla import GetTablaFrame
 from frontend.frames.frames_excel import ExcelFrame
 
-ruta_logo = os.path.join(os.path.dirname(__file__), '..', 'assets', 'Logo NutriLogic.ico')
+ruta_logo = os.path.join(os.path.dirname(__file__), '..', 'assets', 'logo.ico')
 
 
 class NutriLogicApp(ctk.CTk):
